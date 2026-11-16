@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B5F6C7D8-3A4E-4950-8F61-1D2E3F4A5B6C}</ProjectGuid>
+    <RootNamespace>VoiceExtension</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="MetaHookConfig">
+    <MetaHookSvRoot Condition="'$(MetaHookSvRoot)' == '' and exists('$([System.IO.Path]::GetFullPath(&quot;$(MSBuildProjectDirectory)\..\..&quot;))\MetaHook\include\metahook.h')">$([System.IO.Path]::GetFullPath("$(MSBuildProjectDirectory)\..\.."))</MetaHookSvRoot>
+    <MetaHookSvRoot Condition="'$(MetaHookSvRoot)' == '' and exists('$([System.IO.Path]::GetFullPath(&quot;$(MSBuildProjectDirectory)\..\..&quot;))\include\metahook.h')">$([System.IO.Path]::GetFullPath("$(MSBuildProjectDirectory)\..\.."))</MetaHookSvRoot>
+    <MetaHookSvRoot Condition="'$(MetaHookSvRoot)' == ''">$([System.IO.Path]::GetFullPath("$(MSBuildProjectDirectory)\..\.."))</MetaHookSvRoot>
+
+    <MetaHookDir Condition="'$(MetaHookDir)' == '' and '$(METAHOOK_SOURCE_PATH)' != ''">$(METAHOOK_SOURCE_PATH)</MetaHookDir>
+    <MetaHookDir Condition="'$(MetaHookDir)' == '' and exists('$(MetaHookSvRoot)\MetaHook\include\metahook.h')">$(MetaHookSvRoot)\MetaHook</MetaHookDir>
+    <MetaHookDir Condition="'$(MetaHookDir)' == '' and exists('$(MetaHookSvRoot)\include\metahook.h')">$(MetaHookSvRoot)</MetaHookDir>
+    <MetaHookDir Condition="'$(MetaHookDir)' == ''">$(MetaHookSvRoot)\MetaHook</MetaHookDir>
+
+    <SolutionDir Condition="'$(SolutionDir)' == '' or !exists('$(SolutionDir)MetaHook')">$(MetaHookSvRoot)\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)include;$(ProjectDir)include\Interface;$(ProjectDir)include\opus;$(MSBuildProjectDirectory)\src;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory)\include\Interface;$(MSBuildProjectDirectory)\include\opus;$(MetaHookDir)\include;$(MetaHookDir)\include\Interface;$(MetaHookDir)\include\HLSDK\cl_dll;$(MetaHookDir)\include\HLSDK\common;$(MetaHookDir)\include\HLSDK\engine;$(MetaHookDir)\include\HLSDK\pm_shared;$(MetaHookDir)\include\HLSDK\public;$(MetaHookDir)\include\SteamSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <DisableSpecificWarnings>4291;4311;4312;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(MetaHookSvRoot)\thirdparty\SteamSDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)lib\opus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)include;$(ProjectDir)include\Interface;$(ProjectDir)include\opus;$(MSBuildProjectDirectory)\src;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory)\include\Interface;$(MSBuildProjectDirectory)\include\opus;$(MetaHookDir)\include;$(MetaHookDir)\include\Interface;$(MetaHookDir)\include\HLSDK\cl_dll;$(MetaHookDir)\include\HLSDK\common;$(MetaHookDir)\include\HLSDK\engine;$(MetaHookDir)\include\HLSDK\pm_shared;$(MetaHookDir)\include\HLSDK\public;$(MetaHookDir)\include\SteamSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <DisableSpecificWarnings>4091;4291;4311;4312;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(MetaHookSvRoot)\thirdparty\SteamSDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)lib\opus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MetaHookDir)\include\HLSDK\common\interface.cpp" />
+    <ClCompile Include="src\plugins.cpp" />
+    <ClCompile Include="src\VoiceCore.cpp" />
+    <ClCompile Include="src\AudioDecoder.cpp" />
+    <ClCompile Include="src\VoicePipeServer.cpp" />
+    <ClCompile Include="src\VoiceExtensionImport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Interface\IVoiceExtension.h" />
+    <ClInclude Include="include\VoiceExtensionImport.h" />
+    <ClInclude Include="src\plugins.h" />
+    <ClInclude Include="src\VoiceCore.h" />
+    <ClInclude Include="src\AudioDecoder.h" />
+    <ClInclude Include="src\VoicePipeServer.h" />
+    <ClInclude Include="src\VoiceUtils.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

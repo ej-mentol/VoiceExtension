@@ -1,0 +1,18 @@
+# Build outputs & Visual Studio cache
+/build/
+/install/
+/.vs/
+*.user
+/Debug/
+/Release/
+/Release_AVX2/
+
+# Binary test runners and local backup libraries
+*.bak
+lib/*.bak
+lib/*.lib.*
+/tests/test_runner
+/tests/test_runner.exe
+
+# Generated during CMake configuration
+/.clang-format
