@@ -912,13 +912,13 @@ public:
 
 	const char* GetVersion(void) override
 	{
-		return "1.0.0";
+		return "0.0.1-dev";
 	}
 };
 
 const char* IPluginsV4::GetVersion(void)
 {
-	return "1.0.0";
+	return "0.0.1-dev";
 }
 
 EXPOSE_SINGLE_INTERFACE(CVoiceExtensionPlugin, IPluginsV4, METAHOOK_PLUGIN_API_VERSION_V4);
